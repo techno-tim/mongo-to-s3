@@ -70,14 +70,19 @@ echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
 DUMP_FILE="/tmp/dump.mongo.gz"
 echo "Command: mongodump $MONGO_SAFE_HOST_OPTS -p xxx $MONGODUMP_OPTIONS -d $MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE"
+set +e
 mongodump $MONGO_HOST_OPTS $MONGODUMP_OPTIONS -d $MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE
+ret=$?
+set -e
 
-if [ $? == 0 ]; then
+
+if [ $ret == 0 ]; then
     S3_FILE="${DUMP_START_TIME}.${MONGODUMP_DATABASE}.mongo.gz"
 
     copy_s3 $DUMP_FILE $S3_FILE
 else
     >&2 echo "Error creating dump of all databases"
+    exit $ret
 fi
 
 echo "Mongo backup finished"
