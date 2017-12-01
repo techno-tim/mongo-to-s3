@@ -3,7 +3,7 @@ FROM alpine:latest
 COPY install.sh install.sh
 RUN sh install.sh && rm install.sh
 
-ENV MONGODUMP_OPTIONS 
+ENV MONGODUMP_OPTIONS=""
 ENV MONGODUMP_DATABASE **None**
 ENV MONGO_HOST **None**
 ENV MONGO_PORT 27017
@@ -20,4 +20,5 @@ ENV S3_PREFIX 'backup'
 ADD run.sh run.sh
 ADD backup.sh backup.sh
 
-CMD ["sh", "run.sh"]
+ENTRYPOINT [ "sh", "run.sh" ] 
+CMD ["sh", "backup.sh"]
