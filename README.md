@@ -1,4 +1,4 @@
-# mongo-backup-s3
+# mongo-to-s3
 
 Backup Mongo to S3
 
@@ -7,7 +7,7 @@ Based on [Mysql Backup S3](https://hub.docker.com/r/schickling/mysql-backup-s3/)
 ## Basic usage
 
 ```sh
-$ docker run -e S3_ACCESS_KEY_ID=key -e S3_SECRET_ACCESS_KEY=secret -e S3_BUCKET=my-bucket -e S3_PREFIX=backup -e MONGO_USER=user -e MONGO_PASSWORD=password -e MONGO_HOST=localhost registry.sendify.se/mongo-backup-s3
+$ docker run -e S3_ACCESS_KEY_ID=key -e S3_SECRET_ACCESS_KEY=secret -e S3_BUCKET=my-bucket -e S3_PREFIX=backup -e MONGO_USER=user -e MONGO_PASSWORD=password -e MONGO_HOST=localhost byrnedo/mongo-to-s3
 ```
 
 ## Environment variables
