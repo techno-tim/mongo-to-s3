@@ -42,8 +42,8 @@ if [ "${S3_IAMROLE}" != "true" ]; then
   export AWS_DEFAULT_REGION=$S3_REGION
 fi
 
-MONGO_SAFE_HOST_OPTS="-h $MONGO_HOST --port $MONGO_PORT -u $MONGO_USER"
-MONGO_HOST_OPTS="$MONGO_SAFE_HOST_OPTS -p $MONGO_PASSWORD"
+MONGO_SAFE_HOST_OPTS="--host $MONGO_HOST --port=$MONGO_PORT --username=$MONGO_USER"
+MONGO_HOST_OPTS="$MONGO_SAFE_HOST_OPTS --password=$MONGO_PASSWORD"
 DUMP_START_TIME=$(date +"%Y-%m-%dT%H%M%SZ")
 
 copy_s3 () {
@@ -69,9 +69,9 @@ copy_s3 () {
 echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
 DUMP_FILE="/tmp/dump.mongo.gz"
-echo "Command: mongodump $MONGO_SAFE_HOST_OPTS -p xxx $MONGODUMP_OPTIONS -d $MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE"
+echo "Command: mongodump $MONGO_SAFE_HOST_OPTS --password=xxx $MONGODUMP_OPTIONS --db=$MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE"
 set +e
-mongodump $MONGO_HOST_OPTS $MONGODUMP_OPTIONS -d $MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE
+mongodump $MONGO_HOST_OPTS $MONGODUMP_OPTIONS --db=$MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE
 ret=$?
 set -e
 
