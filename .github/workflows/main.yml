@@ -41,4 +41,4 @@ jobs:
           push: true
           tags: | 
             ghcr.io/techno-tim/mongo-to-s3:latest
-            timothystewart6/ mongo-to-s3
+            timothystewart6/mongo-to-s3:latest
