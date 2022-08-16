@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 
-RUN apk add --update-cache \
+RUN apk add --no-cache \
     aws-cli \
     mongodb-tools
 
