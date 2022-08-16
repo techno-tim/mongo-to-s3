@@ -26,8 +26,7 @@ if [ "${MONGO_USER}" == "**None**" ]; then
 fi
 
 if [ "${MONGODUMP_DATABASE}" == "**None**" ]; then
-  echo "You need to set the MONGODUMP_DATABASE environment variable."
-  exit 1
+  echo "Backing up all databases since none was provided."
 fi
 
 if [ "${MONGO_PASSWORD}" == "**None**" ]; then
@@ -68,10 +67,15 @@ copy_s3 () {
 }
 echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
+if [ "${MONGODUMP_DATABASE}" == "**None**" ]; then
+  MONGODUMP_DATABASE_ARG=""
+  else MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
+fi
+
 DUMP_FILE="/tmp/dump.mongo.gz"
-echo "Command: mongodump $MONGO_SAFE_HOST_OPTS --password=xxx $MONGODUMP_OPTIONS --db=$MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE"
+echo "Command: mongodump $MONGO_SAFE_HOST_OPTS --password=xxx $MONGODUMP_OPTIONS $MONGODUMP_DATABASE_ARG --gzip --archive=$DUMP_FILE"
 set +e
-mongodump $MONGO_HOST_OPTS $MONGODUMP_OPTIONS --db=$MONGODUMP_DATABASE --gzip --archive=$DUMP_FILE
+mongodump $MONGO_HOST_OPTS $MONGODUMP_OPTIONS $MONGODUMP_DATABASE_ARG --gzip --archive=$DUMP_FILE
 ret=$?
 set -e
 
