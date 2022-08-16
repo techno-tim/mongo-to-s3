@@ -69,7 +69,8 @@ echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
 if [ "${MONGODUMP_DATABASE}" == "**None**" ]; then
   MONGODUMP_DATABASE_ARG=""
-  else MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
+else 
+  MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
 fi
 
 DUMP_FILE="/tmp/dump.mongo.gz"

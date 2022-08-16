@@ -16,13 +16,13 @@ $ docker run \
     -e MONGO_PASSWORD=password \
     -e MONGO_HOST=localhost \
     -e MONGODUMP_DATABASE=todos \
-    ghcr.io/techno-tim/mongo-to-s3
+    timothystewart6/mongo-to-s3
 ```
 
 ## Environment Variables
 
 - `MONGODUMP_OPTIONS` mongodump options (default: )
-- `MONGODUMP_DATABASE` list of databases you want to backup *required*
+- `MONGODUMP_DATABASE` list of databases you want to backup *optional* (default all)
 - `MONGO_HOST` the mongo host *required*
 - `MONGO_PORT` the mongo port (default: 27017)
 - `MONGO_USER` the mongo user *required*
