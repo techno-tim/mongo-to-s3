@@ -1,9 +1,5 @@
 FROM ubuntu:jammy
 
-RUN apk add --no-cache \
-    aws-cli \
-    mongodb-tools=4.2.14-r9
-
 RUN apt-get update && apt-get install -y \
     aws-cli \
     mongodb-tools \
