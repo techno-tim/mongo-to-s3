@@ -1,9 +1,12 @@
 FROM ubuntu:jammy
 
 RUN apt-get update && apt-get install -y \
-    aws-cli \
-    mongodb-tools \
+    awscli \
     && rm -rf /var/lib/apt/lists/*
+
+RUN wget -q -o https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && dpkg -i /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && rm /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb
 
 ENV MONGODUMP_OPTIONS=""
 ENV MONGODUMP_DATABASE **None**
