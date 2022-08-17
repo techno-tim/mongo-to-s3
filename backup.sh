@@ -1,5 +1,7 @@
 #! /bin/sh
 
+mongodump --version
+
 # set -eo pipefail
 
 if [ "${S3_ACCESS_KEY_ID}" == "**None**" ]; then
