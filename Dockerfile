@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:latest
 
 RUN apk add --no-cache \
     aws-cli \
