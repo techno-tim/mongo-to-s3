@@ -1,13 +1,22 @@
-FROM ubuntu:jammy
+FROM ubuntu:focal
+
+ENV TZ=America/Chicago
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update && apt-get install -y \
+    wget
+
+RUN wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && apt install -y ./mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && rm ./mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \
     awscli \
-    mongodb-database-tools \
     && rm -rf /var/lib/apt/lists/*
 
-# RUN wget -q -O https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
-#     && apt install /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
-#     && rm /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb
+RUN apt remove -y wget
 
 ENV MONGODUMP_OPTIONS=""
 ENV MONGODUMP_DATABASE **None**
