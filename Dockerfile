@@ -2,7 +2,7 @@ FROM ubuntu:jammy
 
 RUN apt-get update && apt-get install -y \
     awscli \
-    mongodb-org-tools \
+    mongodb-database-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # RUN wget -q -O https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
