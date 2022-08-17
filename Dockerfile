@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu
 
 RUN apk add --no-cache \
     aws-cli \
