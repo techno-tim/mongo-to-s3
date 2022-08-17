@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget -q -O https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
-    && dpkg -i -y /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && apt install /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
     && rm /tmp/mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb
 
 ENV MONGODUMP_OPTIONS=""
