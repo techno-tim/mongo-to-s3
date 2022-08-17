@@ -1,9 +1,12 @@
-name: CI for releases
-
+name: 'Pull Request'
 on:
-  push:
+  pull_request:
     branches:
       - main
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
 
 jobs:
   build-and-push-docker-image:
@@ -19,10 +22,10 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
-        name: Build and push
+        name: Build
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: false
