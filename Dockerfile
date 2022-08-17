@@ -3,7 +3,7 @@ FROM alpine:latest
 
 RUN apk add --no-cache \
     aws-cli \
-    mongodb-tools
+    mongodb-tools=4.2.14-r9
 
 ENV MONGODUMP_OPTIONS=""
 ENV MONGODUMP_DATABASE **None**
