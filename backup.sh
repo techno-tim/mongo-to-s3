@@ -1,6 +1,5 @@
-#! /bin/bash
-
-set -e
+#!/bin/bash 
+set -e option
 
 if [ "${S3_ACCESS_KEY_ID}" == "**None**" ]; then
   echo "Warning: You did not set the S3_ACCESS_KEY_ID environment variable."
@@ -41,7 +40,7 @@ if [ "${S3_IAMROLE}" != "true" ]; then
   export AWS_DEFAULT_REGION=$S3_REGION
 fi
 
-MONGO_SAFE_HOST_OPTS="--host $MONGO_HOST --port=$MONGO_PORT --username=$MONGO_USER"
+MONGO_SAFE_HOST_OPTS="--host=$MONGO_HOST --port=$MONGO_PORT --username=$MONGO_USER"
 MONGO_HOST_OPTS="$MONGO_SAFE_HOST_OPTS --password=$MONGO_PASSWORD"
 DUMP_START_TIME=$(date +"%Y-%m-%dT%H%M%SZ")
 
