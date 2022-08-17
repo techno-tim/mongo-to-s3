@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
     wget
 
 RUN wget -q https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2004-x86_64-100.5.4.deb \
-    && apt install -y ./mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
-    && rm ./mongodb-database-tools-ubuntu2204-x86_64-100.5.4.deb \
+    && apt install -y ./mongodb-database-tools-ubuntu2004-x86_64-100.5.4.deb \
+    && rm ./mongodb-database-tools-ubuntu2004-x86_64-100.5.4.deb \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \
