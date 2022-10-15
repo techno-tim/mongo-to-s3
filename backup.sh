@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 bash --posix
 set -eo pipefail
 
