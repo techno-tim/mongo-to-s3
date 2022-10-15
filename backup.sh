@@ -1,6 +1,6 @@
-#!/bin/bash
-bash --posix
-set -eo pipefail
+#! /bin/bash
+# bash --posix
+# set -eo pipefail
 
 if [ "${S3_ACCESS_KEY_ID}" == "**None**" ]; then
   echo "Warning: You did not set the S3_ACCESS_KEY_ID environment variable."
@@ -34,6 +34,11 @@ if [ "${MONGO_PASSWORD}" == "**None**" ]; then
   exit 1
 fi
 
+
+if [ "${MONGODUMP_DATABASE_ARG}" == "**None**" ]; then
+  echo "Since MONGODUMP_DATABASE_ARG was not used, all databases will be backed up"
+fi
+
 if [ "${S3_IAMROLE}" != "true" ]; then
   # env vars needed for aws tools - only if an IAM role is not used
   export AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID
@@ -41,7 +46,7 @@ if [ "${S3_IAMROLE}" != "true" ]; then
   export AWS_DEFAULT_REGION=$S3_REGION
 fi
 
-MONGO_SAFE_HOST_OPTS="--host=$MONGO_HOST --port=$MONGO_PORT --username=$MONGO_USER"
+MONGO_SAFE_HOST_OPTS="--host=$MONGO_HOST --username=$MONGO_USER"
 MONGO_HOST_OPTS="$MONGO_SAFE_HOST_OPTS --password=$MONGO_PASSWORD"
 DUMP_START_TIME=$(date +"%Y-%m-%dT%H%M%SZ")
 
@@ -67,7 +72,7 @@ copy_s3 () {
 }
 echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
-if [ "${MONGODUMP_DATABASE}" == "**None**" ]; then
+if [ "${MONGODUMP_DATABASE_ARG}" == "**None**" ]; then
   MONGODUMP_DATABASE_ARG=""
 else 
   MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
@@ -81,7 +86,7 @@ ret=$?
 set -e
 
 
-if [ $ret == 0 ]; then
+if [ $ret = 0 ]; then
     S3_FILE="${DUMP_START_TIME}.${MONGODUMP_DATABASE}.mongo.gz"
 
     copy_s3 $DUMP_FILE $S3_FILE
