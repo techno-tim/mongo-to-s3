@@ -85,7 +85,7 @@ ret=$?
 set -e
 
 
-if [ $ret = 0 ]; then
+if [ $ret == 0 ]; then
     S3_FILE="${DUMP_START_TIME}.${MONGODUMP_DATABASE}.mongo.gz"
 
     copy_s3 $DUMP_FILE $S3_FILE
