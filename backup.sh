@@ -35,7 +35,7 @@ fi
 
 
 if [ "${MONGODUMP_DATABASE_ARG}" = "**None**" ]; then
-  echo "Since MONGODUMP_DATABASE_ARG was not used, all databases will be backed up"
+  echo "Since MONGODUMP_DATABASE_ARG was not used, all databases will be backed up."
 fi
 
 if [ "${S3_IAMROLE}" != "true" ]; then
