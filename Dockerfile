@@ -30,6 +30,7 @@ ENV S3_REGION eu-west-1
 ENV S3_ENDPOINT **None**
 ENV S3_S3V4 no
 ENV S3_PREFIX 'backup'
+ENV MONGODUMP_DATABASE_ARG **None**
 
 ADD run.sh run.sh
 ADD backup.sh backup.sh
