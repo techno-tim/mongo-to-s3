@@ -1,40 +1,38 @@
-#!/bin/bash 
-set -e option
 
-if [ "${S3_ACCESS_KEY_ID}" == "**None**" ]; then
+if [ "${S3_ACCESS_KEY_ID}" = "**None**" ]; then
   echo "Warning: You did not set the S3_ACCESS_KEY_ID environment variable."
 fi
 
-if [ "${S3_SECRET_ACCESS_KEY}" == "**None**" ]; then
+if [ "${S3_SECRET_ACCESS_KEY}" = "**None**" ]; then
   echo "Warning: You did not set the S3_SECRET_ACCESS_KEY environment variable."
 fi
 
-if [ "${S3_BUCKET}" == "**None**" ]; then
+if [ "${S3_BUCKET}" = "**None**" ]; then
   echo "You need to set the S3_BUCKET environment variable."
   exit 1
 fi
 
-if [ "${MONGO_HOST}" == "**None**" ]; then
+if [ "${MONGO_HOST}" = "**None**" ]; then
   echo "You need to set the MONGO_HOST environment variable."
   exit 1
 fi
 
-if [ "${MONGO_USER}" == "**None**" ]; then
+if [ "${MONGO_USER}" = "**None**" ]; then
   echo "You need to set the MONGO_USER environment variable."
   exit 1
 fi
 
-if [ "${MONGODUMP_DATABASE}" == "**None**" ]; then
+if [ "${MONGODUMP_DATABASE}" = "**None**" ]; then
   echo "Backing up all databases since none was provided."
 fi
 
-if [ "${MONGO_PASSWORD}" == "**None**" ]; then
+if [ "${MONGO_PASSWORD}" = "**None**" ]; then
   echo "You need to set the MONGO_PASSWORD environment variable or link to a container named MONGO."
   exit 1
 fi
 
 
-if [ "${MONGODUMP_DATABASE_ARG}" == "**None**" ]; then
+if [ "${MONGODUMP_DATABASE_ARG}" = "**None**" ]; then
   echo "Since MONGODUMP_DATABASE_ARG was not used, all databases will be backed up"
 fi
 
@@ -53,7 +51,7 @@ copy_s3 () {
   SRC_FILE=$1
   DEST_FILE=$2
 
-  if [ "${S3_ENDPOINT}" == "**None**" ]; then
+  if [ "${S3_ENDPOINT}" = "**None**" ]; then
     AWS_ARGS=""
   else
     AWS_ARGS="--endpoint-url ${S3_ENDPOINT}"
@@ -71,7 +69,7 @@ copy_s3 () {
 }
 echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
-if [ "${MONGODUMP_DATABASE_ARG}" == "**None**" ]; then
+if [ "${MONGODUMP_DATABASE_ARG}" = "**None**" ]; then
   MONGODUMP_DATABASE_ARG=""
 else 
   MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
@@ -85,7 +83,7 @@ ret=$?
 set -e
 
 
-if [ $ret == 0 ]; then
+if [ $ret = 0 ]; then
     S3_FILE="${DUMP_START_TIME}.${MONGODUMP_DATABASE}.mongo.gz"
 
     copy_s3 $DUMP_FILE $S3_FILE
