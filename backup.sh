@@ -48,7 +48,7 @@ fi
 MONGO_SAFE_HOST_OPTS="--host=$MONGO_HOST --username=$MONGO_USER"
 MONGO_HOST_OPTS="$MONGO_SAFE_HOST_OPTS --password=$MONGO_PASSWORD"
 DUMP_START_TIME=$(date +"%Y-%m-%dT%H%M%SZ")
-
+DATABASE_FILE_NAME=${MONGODUMP_DATABASE_ARG}
 copy_s3 () {
   SRC_FILE=$1
   DEST_FILE=$2
@@ -73,6 +73,7 @@ echo "Creating dump for ${MONGODUMP_DATABASE} from ${MONGO_HOST}..."
 
 if [ "${MONGODUMP_DATABASE_ARG}" = "**None**" ]; then
   MONGODUMP_DATABASE_ARG=""
+  DATABASE_FILE_NAME="all"
 else 
   MONGODUMP_DATABASE_ARG="--db=$MONGODUMP_DATABASE"
 fi
@@ -86,7 +87,7 @@ set -e
 
 
 if [ $ret = 0 ]; then
-    S3_FILE="${DUMP_START_TIME}.${MONGODUMP_DATABASE}.mongo.gz"
+    S3_FILE="${DUMP_START_TIME}.${DATABASE_FILE_NAME}.mongo.gz"
 
     copy_s3 $DUMP_FILE $S3_FILE
 else
