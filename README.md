@@ -2,7 +2,7 @@
 
 [![Docker Build Status](https://img.shields.io/docker/pulls/timothystewart6/mongo-to-s3.svg)](https://hub.docker.com/r/timothystewart6/mongo-to-s3/)
 
-Backup Mongo to S3, build for [minio](https://minio.io)
+Backup Mongo to S3, built for [minio](https://minio.io)
 
 Based on [Mysql Backup S3](https://hub.docker.com/r/schickling/mysql-backup-s3/)
 

@@ -1,0 +1,35 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mongo-to-s3
+  namespace: default
+spec:
+  schedule: "0 */12 * * *" # every 12 hours
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          containers:
+            - name: mongo-to-s3
+              image: timothystewart6/mongo-to-s3:latest
+              env:
+                - name: MONGODUMP_OPTIONS
+                  value: --authenticationDatabase=admin
+                - name: MONGO_HOST
+                  value: rs0/mongodb-headless # replica set/service endpoint
+                - name: MONGO_USER
+                  value: root
+                - name: MONGO_PASSWORD
+                  value: password
+                - name: S3_ACCESS_KEY_ID
+                  value: some-key
+                - name: S3_SECRET_ACCESS_KEY
+                  value: access-key
+                - name: S3_BUCKET
+                  value: mongodb-backups
+                - name: S3_ENDPOINT
+                  value: https://minio.local.example.com
+          restartPolicy: Never
