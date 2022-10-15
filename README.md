@@ -2,7 +2,7 @@
 
 [![Docker Build Status](https://img.shields.io/docker/pulls/timothystewart6/mongo-to-s3.svg)](https://hub.docker.com/r/timothystewart6/mongo-to-s3/)
 
-Backup Mongo to S3
+Backup Mongo to S3, build for [minio](https://minio.io)
 
 Based on [Mysql Backup S3](https://hub.docker.com/r/schickling/mysql-backup-s3/)
 
@@ -36,3 +36,7 @@ $ docker run \
 - `S3_REGION` the AWS S3 bucket region (default: eu-west-1)
 - `S3_ENDPOINT` the AWS Endpoint URL, for S3 Compliant APIs such as [minio](https://minio.io) (default: none)
 - `S3_S3V4` set to `yes` to enable AWS Signature Version 4, required for [minio](https://minio.io) servers (default: no)
+
+## .env
+
+See `.env.example` for ENVs
