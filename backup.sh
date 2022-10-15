@@ -1,5 +1,4 @@
-#!/bin/bash
-bash --posix
+#!/bin/bash 
 set -eo pipefail
 
 if [ "${S3_ACCESS_KEY_ID}" == "**None**" ]; then
